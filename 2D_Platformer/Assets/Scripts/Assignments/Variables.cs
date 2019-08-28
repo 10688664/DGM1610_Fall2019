@@ -15,10 +15,10 @@ public class Variables : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("First Name: " + name);
-        Debug.Log("Age: " + age);
-        Debug.Log("Height: " + height);
-        Debug.Log("Married: " + married);
+        // Debug.Log("First Name: " + name);
+        // Debug.Log("Age: " + age);
+        // Debug.Log("Height: " + height);
+        // Debug.Log("Married: " + married);
     }
 
     
