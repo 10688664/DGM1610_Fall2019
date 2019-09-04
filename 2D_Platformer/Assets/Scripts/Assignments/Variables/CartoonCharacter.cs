@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CartoonCharacter : MonoBehaviour
 {
-    string name = "Larry";
+    string characterName = "Larry";
     float height = 1.9f;
     bool superpower = true;
     string superpowername = "ageless";
@@ -14,7 +14,7 @@ public class CartoonCharacter : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Cartoon Character's name:" + name);
+        Debug.Log("Cartoon Character's name:" + characterName);
         Debug.Log("Cartoon Character's height:" + height);
         Debug.Log("Character's superpower:" + superpower);
         Debug.Log("Superpower:" + superpowername);

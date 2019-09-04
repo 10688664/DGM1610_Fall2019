@@ -2,18 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Villain : MonoBehaviour
+public class Superhero : MonoBehaviour
 {
-    string name = "Fluffiest Dandie";
-    float height = 6.8f;
+    string characterName = "Captain Murder";
+    float height = 5.4f;
     bool superpower = true;
-    string superpowerName = "Impervious Shield";
-    int age = 48;
+    string superpowerName = "Death touch";
+    int age = 12;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Superhero name: " + name);
+        Debug.Log("Superhero name: " + characterName);
         Debug.Log("Superhero height: " + height);
         Debug.Log("Do they have a superpower: " + superpower);
         Debug.Log("What's their superpower: " + superpowerName);
