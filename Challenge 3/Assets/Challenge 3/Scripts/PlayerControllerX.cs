@@ -40,10 +40,10 @@ public class PlayerControllerX : MonoBehaviour
         {
             playerRb.AddForce(Vector3.up * floatForce);
         }
-        else if (transform.position.y < yRange == false)
+        /*else if (transform.position.y < yRange == false)
         {
             playerRb.AddForce(Vector3.up * floatForce);
-        }
+        }*/
 
     }
 
