@@ -5,10 +5,9 @@ using UnityEngine;
 public class PlayerControllerX : MonoBehaviour
 {
     public bool gameOver;
-    
-    //private bool isLowEnough;
 
     public float floatForce;
+    public float bounceForce;
     private float gravityModifier = 1.5f;
     private Rigidbody playerRb;
 
@@ -45,35 +44,38 @@ public class PlayerControllerX : MonoBehaviour
             {
                 playerRb.AddForce(Vector3.up * floatForce);
             }
-            else
-            {
-               playerRb.AddForce(Vector3.down * floatForce / 3); 
-            }
         }
    
     }
 
-    // private void OnCollisionEnter(Collision other)
-    // {
-    //     //if player collides with bomb, explode and set gameOver to true
-    //     if (other.gameObject.CompareTag("Bomb"))
-    //     {
-    //         explosionParticle.Play();
-    //         playerAudio.PlayOneShot(explodeSound, 1.0f);
-    //         gameOver = true;
-    //         Debug.Log("Game Over!");
-    //         Destroy(other.gameObject);
-    //     } 
+    private void OnCollisionEnter(Collision other)
+    {
 
-    //     //if player collides with money, fireworks
-    //     else if (other.gameObject.CompareTag("Money"))
-    //     {
-    //         fireworksParticle.Play();
-    //         playerAudio.PlayOneShot(moneySound, 1.0f);
-    //         Destroy(other.gameObject);
+        //if player collides with bomb, explode and set gameOver to true
+        if (other.gameObject.CompareTag("Bomb"))
+        {
+            explosionParticle.Play();
+            playerAudio.PlayOneShot(explodeSound, 1.0f);
+            gameOver = true;
+            Debug.Log("Game Over!");
+            Destroy(other.gameObject);
+        } 
 
-    //     }
+        //if player collides with money, fireworks
+        else if (other.gameObject.CompareTag("Money"))
+        {
+            fireworksParticle.Play();
+            playerAudio.PlayOneShot(moneySound, 1.0f);
+            Destroy(other.gameObject);
 
-    // }
+        }
+
+                //if player collides with ground, add slight force up.
+        else if (other.gameObject.CompareTag("Ground"))
+        {
+            playerRb.AddForce(Vector3.up * bounceForce, ForceMode.Impulse);
+        }
+
+    }
 
 }
