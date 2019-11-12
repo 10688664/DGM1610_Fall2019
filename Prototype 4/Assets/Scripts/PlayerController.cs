@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5.0f;
+<<<<<<< HEAD
     public bool hasPowerup = false;
     public GameObject powerupIndicator;
 
@@ -12,6 +13,11 @@ public class PlayerController : MonoBehaviour
     private Rigidbody playerRb;
     private float powerupStr = 15.0f;
     private Vector3 powerupOffset = new Vector3(0, -0.5f, 0);
+=======
+
+    private GameObject focalPoint;
+    private Rigidbody playerRb;
+>>>>>>> master
 
     // Start is called before the first frame update
     void Start()
@@ -26,6 +32,7 @@ public class PlayerController : MonoBehaviour
         float forwardInput = Input.GetAxis("Vertical");
 
         playerRb.AddForce(focalPoint.transform.forward * forwardInput * speed);
+<<<<<<< HEAD
 
         //sets powerup indicator to player position
         powerupIndicator.transform.position = transform.position + powerupOffset;
@@ -58,5 +65,7 @@ public class PlayerController : MonoBehaviour
 
             enemyRb.AddForce(awayFromPlayer * powerupStr, ForceMode.Impulse);
         }    
+=======
+>>>>>>> master
     }
 }
