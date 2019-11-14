@@ -8,6 +8,8 @@ public class EnemyX : MonoBehaviour
     private Rigidbody enemyRb;
     private GameObject playerGoal;
 
+    public SpawnManagerX enemySpeedRef;
+
     // Start is called before the first frame update
     void Start()
     {

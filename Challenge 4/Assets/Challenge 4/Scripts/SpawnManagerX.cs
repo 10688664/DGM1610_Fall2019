@@ -6,6 +6,10 @@ public class SpawnManagerX : MonoBehaviour
 {
     public GameObject enemyPrefab;
     public GameObject powerupPrefab;
+    public GameObject player;
+
+    private GameObject enemy;
+    public EnemyX enemyXScript;
 
     private float spawnRangeX = 10;
     private float spawnZMin = 15; // set min spawn Z
@@ -13,19 +17,17 @@ public class SpawnManagerX : MonoBehaviour
 
     public int enemyCount;
     public int waveCount = 1;
-
-    public GameObject player;
-    public EnemyX enemySpeed;
+    public float enemySpeed = 50.0f;
 
     // Update is called once per frame
     void Update()
-    {
+    { 
+
         enemyCount = GameObject.FindGameObjectsWithTag("Enemy").Length;
 
         if (enemyCount == 0)
         {
             SpawnEnemyWave(waveCount);
-            //SpawnEnemyWave(enemySpeed);
         }
 
     }
@@ -41,6 +43,7 @@ public class SpawnManagerX : MonoBehaviour
 
     void SpawnEnemyWave(int enemiesToSpawn)
     {
+
         Vector3 powerupSpawnOffset = new Vector3(0, 0, -15); // make powerups spawn at player end
 
         // If no powerups remain, spawn a powerup
@@ -48,14 +51,23 @@ public class SpawnManagerX : MonoBehaviour
         {
             Instantiate(powerupPrefab, GenerateSpawnPosition() + powerupSpawnOffset, powerupPrefab.transform.rotation);
         }
-
+    
         // Spawn number of enemy balls based on wave number
         for (int i = 0; i < enemiesToSpawn; i++)
         {
             Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
         }
 
-        //enemySpeed++;
+        // Increase speed of enemies each round
+        enemySpeed += 100.0f;
+
+        for (int i = 0; i < GameObject.FindGameObjectsWithTag("Enemy").Length; i++)
+        {
+            enemy = GameObject.FindGameObjectsWithTag("Enemy")[i];
+            enemyXScript = enemy.GetComponent<EnemyX>();
+            enemyXScript.speed = enemySpeed;
+        }
+
         waveCount++;
         ResetPlayerPosition(); // put player back at start
 
