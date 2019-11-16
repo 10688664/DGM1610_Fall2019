@@ -4,34 +4,48 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private float speed = 10.0f;
-    private Rigidbody playerRb;
-    private float zBound = -18;
-    private float yBound = 10;
+    public float jumpForce;
+    public float speed;
 
-    // Start is called before the first frame update
+    public bool isOnGround = true;
+
+    private Rigidbody playerRb;
+   
+
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        float verticalInput = Input.GetAxis("Vertical");
+        MovePlayer();
+    }
+
+    void MovePlayer()
+    {   
+        //Moves player with arrow keys if on ground
         float horizontalInput = Input.GetAxis("Horizontal");
-
-        playerRb.AddForce(Vector3.up * speed * verticalInput);
-        playerRb.AddForce(Vector3.forward * speed * horizontalInput);
-
-        if (transform.position.z < zBound)
+        if(isOnGround)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y, zBound);
+            playerRb.AddForce(Vector3.forward * speed * horizontalInput, ForceMode.Force);
         }
-
-        if (transform.position.y > yBound)
+ 
+        //Player jumps
+        if(Input.GetKeyDown(KeyCode.Space) && isOnGround)
         {
-            transform.position = new Vector3(transform.position.x, yBound, transform.position.z);
+            playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            isOnGround = false;
         }
     }
+
+    //Ground bool = true if player is colliding with ground
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            isOnGround = true;
+        }    
+    }
+
 }
