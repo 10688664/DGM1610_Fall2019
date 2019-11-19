@@ -8,13 +8,13 @@ public class SheepMovement : MonoBehaviour
     public float maxRange;
     public float minRange;
 
-    private Rigidbody sheepRB;
+    private Rigidbody sheepRb;
     private GameObject player;
 
     
     void Start()
     {
-        sheepRB = GetComponent<Rigidbody>();
+        sheepRb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
     }
 
@@ -30,7 +30,7 @@ public class SheepMovement : MonoBehaviour
         if((Vector3.Distance(transform.position, player.transform.position) < maxRange) && (Vector3.Distance(transform.position, player.transform.position) > minRange))
         {
             Vector3 lookDirection = (transform.position - player.transform.position).normalized;
-            sheepRB.AddForce(lookDirection * speed, ForceMode.Force);
+            sheepRb.AddForce(lookDirection * speed, ForceMode.Impulse);
         }
         
     }
