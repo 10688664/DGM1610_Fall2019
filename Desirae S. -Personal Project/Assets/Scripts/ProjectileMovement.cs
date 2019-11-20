@@ -6,10 +6,17 @@ public class ProjectileMovement : MonoBehaviour
 {
     public float speed = 40.0f;
 
+    private GameObject player;
 
-    // Update is called once per frame
+
+    void Start()
+    {
+        player = GameObject.Find("Player");
+    }
+    
     void Update()
     {
-        transform.Translate(Vector3.back * Time.deltaTime * speed);
+        transform.LookAt(player.transform.position);
+        transform.Translate(Vector3.forward * Time.deltaTime * speed);
     }
 }

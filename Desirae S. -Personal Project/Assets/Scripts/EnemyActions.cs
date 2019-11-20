@@ -16,19 +16,20 @@ public class EnemyActions : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
+        
     }
 
     // Update is called once per frame
     void Update()
     {
         ShootPlayer();
-    
     }
 
     void ShootPlayer()
     {
         if((Vector3.Distance(transform.position, player.transform.position) < maxRange) && (Vector3.Distance(transform.position, player.transform.position) > minRange))
         {
+            transform.LookAt(player.transform.position);
             Instantiate(projectile, transform.position, projectile.transform.rotation);
             StartCoroutine(ShotCountdownRoutine());
         }
