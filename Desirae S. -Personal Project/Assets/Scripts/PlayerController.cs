@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
 
     public bool isOnGround = true;
+    public bool hasPowerup = false;
 
     private Rigidbody playerRb;
    
@@ -46,6 +47,15 @@ public class PlayerController : MonoBehaviour
         {
             isOnGround = true;
         }    
+    }
+
+    private void OnTriggerEnter(Collider other) 
+    {
+        if(other.CompareTag("Powerup"))
+        {
+            hasPowerup = true;
+            Destroy(other.gameObject);
+        } 
     }
 
 }

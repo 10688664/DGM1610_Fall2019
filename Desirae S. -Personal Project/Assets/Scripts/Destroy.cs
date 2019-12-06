@@ -14,7 +14,7 @@ public class Destroy : MonoBehaviour
         player = GameObject.Find("Player");
     }
 
-    // Update is called once per frame
+    // destroy projectile if goes out of bounds
     void Update()
     {
         if(transform.position.z < zBounds)
