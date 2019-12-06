@@ -27,6 +27,10 @@ public class Destroy : MonoBehaviour
     private void OnTriggerEnter(Collider other) 
     {
         Destroy(gameObject);
-        Destroy(player);
+
+        if(player.CompareBool = !hasPowerup)
+        {
+            Destroy(player);
+        }
     }
 }

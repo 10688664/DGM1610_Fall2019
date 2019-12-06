@@ -40,15 +40,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    //Ground bool = true if player is colliding with ground
-    private void OnCollisionEnter(Collision collision)
-    {
-        if(collision.gameObject.CompareTag("Ground"))
-        {
-            isOnGround = true;
-        }    
-    }
-
     private void OnTriggerEnter(Collider other) 
     {
         if(other.CompareTag("Powerup"))
@@ -57,5 +48,21 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
         } 
     }
+
+    //Ground bool = true if player is colliding with ground
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.CompareTag("Enemy") && hasPowerup)
+        {
+            Destroy(gameObject);
+        }
+
+        if(collision.gameObject.CompareTag("Ground"))
+        {
+            isOnGround = true;
+        }    
+    }
+
+    
 
 }
