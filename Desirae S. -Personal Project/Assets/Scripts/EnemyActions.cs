@@ -6,8 +6,12 @@ public class EnemyActions : MonoBehaviour
 {
     public float minRange;
     public float maxRange;
-    
+    public float fireRate;
+
+    public bool fireWait = false;
+
     public GameObject projectile;
+    public PlayerController playerPowerup;
 
     private GameObject player;
 
@@ -16,7 +20,7 @@ public class EnemyActions : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
-        
+        playerPowerup = player.GetComponent<PlayerController>();
     }
 
     // Update is called once per frame
@@ -25,18 +29,32 @@ public class EnemyActions : MonoBehaviour
         ShootPlayer();
     }
 
+    /*private void OnCollisionEnter(Collision other) 
+    {
+        if(playerPowerup.hasPowerup && player.gameObject)
+        {
+            Destroy(gameObject);
+        }   
+    }*/
+
+    IEnumerator ShotCountdownRoutine()
+    {
+        fireWait = true;
+        yield return new WaitForSeconds(fireRate);
+        Instantiate(projectile, transform.position, projectile.transform.rotation);
+        fireWait = false;
+    }
+
     void ShootPlayer()
     {
         if((Vector3.Distance(transform.position, player.transform.position) < maxRange) && (Vector3.Distance(transform.position, player.transform.position) > minRange))
         {
-            transform.LookAt(player.transform.position);
-            Instantiate(projectile, transform.position, projectile.transform.rotation);
-            StartCoroutine(ShotCountdownRoutine());
-        }
-    }
+            transform.LookAt(player.transform.position);   
 
-    IEnumerator ShotCountdownRoutine()
-    {
-        yield return new WaitForSeconds(6);
+            if(!fireWait)
+            {
+                StartCoroutine(ShotCountdownRoutine());
+            }
+        }
     }
 }

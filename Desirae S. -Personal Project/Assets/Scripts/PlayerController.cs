@@ -6,12 +6,12 @@ public class PlayerController : MonoBehaviour
 {
     public float jumpForce;
     public float speed;
+    public float powerupRate = 3.0f;
 
     public bool isOnGround = true;
     public bool hasPowerup = false;
 
-    private Rigidbody playerRb;
-   
+    public Rigidbody playerRb;
 
     void Start()
     {
@@ -40,29 +40,40 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other) 
-    {
-        if(other.CompareTag("Powerup"))
-        {
-            hasPowerup = true;
-            Destroy(other.gameObject);
-        } 
-    }
-
     //Ground bool = true if player is colliding with ground
+    
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("Enemy") && hasPowerup)
-        {
-            Destroy(gameObject);
-        }
-
         if(collision.gameObject.CompareTag("Ground"))
         {
             isOnGround = true;
         }    
     }
 
-    
+    //Power up timer and destroys powerup
+    //If player has power up player can kill the enemy
+    private void OnTriggerEnter(Collider other) 
+    {
+        if(other.tag == "Enemy" && hasPowerup == true)
+        {
+            Destroy(other.gameObject);
+        }
 
+        if(other.CompareTag("Powerup"))
+        {
+            hasPowerup = true;
+            StartCoroutine(PowerupTimer());
+            Destroy(other.gameObject);
+        } 
+
+    }
+
+    IEnumerator PowerupTimer()
+    {
+        if(hasPowerup == true)
+        {
+            yield return new WaitForSeconds(powerupRate);
+            hasPowerup = false;
+        }
+    }
 }

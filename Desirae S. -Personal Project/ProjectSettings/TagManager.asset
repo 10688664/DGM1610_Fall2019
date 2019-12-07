@@ -7,6 +7,7 @@ TagManager:
   - Ground
   - Powerup
   - Enemy
+  - Sheep
   layers:
   - Default
   - TransparentFX
