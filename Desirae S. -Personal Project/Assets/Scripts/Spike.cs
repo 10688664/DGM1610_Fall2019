@@ -5,11 +5,16 @@ using UnityEngine;
 public class Spike : MonoBehaviour
 {
     private GameObject player;
+    private GameObject gameManager;
+
+    private GameManager gameManagerScript;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
+        gameManager = GameObject.Find("Game Manager");
+        gameManagerScript = gameManager.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
@@ -20,6 +25,11 @@ public class Spike : MonoBehaviour
 
     private void OnCollisionEnter(Collision other) 
     {
-        Destroy(player);
+        if(other.gameObject == player)
+        {
+            Destroy(player);
+            gameManagerScript.GameOver();
+        }
+       
     }
 }

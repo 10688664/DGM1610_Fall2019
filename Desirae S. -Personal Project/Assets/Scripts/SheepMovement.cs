@@ -8,20 +8,29 @@ public class SheepMovement : MonoBehaviour
     public float maxRange;
     public float minRange;
 
+    public GameManager gameManagerScript;
+
     private Rigidbody sheepRb;
     private GameObject player;
+    private GameObject gameManager;
 
     
     void Start()
     {
         sheepRb = GetComponent<Rigidbody>();
         player = GameObject.Find("Player");
+        gameManager = GameObject.Find("Game Manager");
+        gameManagerScript = gameManager.GetComponent<GameManager>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        MoveSheep();
+        if(player != null)
+        {
+            MoveSheep();
+        }
+        
     }
 
     //Moves sheep away from player
@@ -41,6 +50,7 @@ public class SheepMovement : MonoBehaviour
         if(other.gameObject.name == "Player")
         {
             Destroy(gameObject);
+            gameManagerScript.UpdateScore(1);
         }    
     }
 

@@ -6,14 +6,24 @@ public class Destroy : MonoBehaviour
 {
     private float zBounds = -18;
 
+    private GameObject gameManager;
     private GameObject player;
+
     private PlayerController playerScript;
+    private GameManager gameManagerScript;
 
     // Start is called before the first frame update
     void Start()
     {
         player = GameObject.Find("Player");
-        playerScript = player.GetComponent<PlayerController>();
+        gameManager = GameObject.Find("Game Manager");
+        gameManagerScript = gameManager.GetComponent<GameManager>();
+
+        if(player != null)
+        {
+            playerScript = player.GetComponent<PlayerController>();
+        }
+        
     }
 
     // destroy projectile if goes out of bounds
@@ -37,6 +47,7 @@ public class Destroy : MonoBehaviour
         {
             Destroy(player);
             Destroy(gameObject);
+            gameManagerScript.GameOver();
         }
     }
 }

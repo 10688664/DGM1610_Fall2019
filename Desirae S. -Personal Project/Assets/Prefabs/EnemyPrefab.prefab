@@ -106,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minRange: 1
   maxRange: 5
-  fireRate: 0.5
+  fireRate: 0.1
   fireWait: 0
   projectile: {fileID: 7746570781569147064, guid: d79861ac914368d49b4d2825e940fbf9,
     type: 3}

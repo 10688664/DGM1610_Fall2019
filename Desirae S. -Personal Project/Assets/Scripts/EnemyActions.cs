@@ -26,16 +26,20 @@ public class EnemyActions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ShootPlayer();
+        if(player != null)
+        {
+            ShootPlayer();
+        }
+        
     }
 
-    /*private void OnCollisionEnter(Collision other) 
+    private void OnCollisionEnter(Collision other)
     {
-        if(playerPowerup.hasPowerup && player.gameObject)
+        if(playerPowerup.hasPowerup && other.gameObject == player)
         {
             Destroy(gameObject);
-        }   
-    }*/
+        } 
+    }
 
     IEnumerator ShotCountdownRoutine()
     {

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,22 +12,42 @@ public class PlayerController : MonoBehaviour
     public bool isOnGround = true;
     public bool hasPowerup = false;
 
-    public Rigidbody playerRb;
+    private Rigidbody playerRb;
+
+    private GameObject enemy;
+
+    public ParticleSystem powerUpEffect;
+
+    public TextMeshProUGUI titleText;
+    public TextMeshProUGUI movementText;
+
+    public AudioClip jumpSound;
+    private AudioSource playerAudio;
 
     void Start()
     {
+        enemy = GameObject.Find("Enemy");
         playerRb = GetComponent<Rigidbody>();
+        powerUpEffect.Stop();
+        playerAudio = GetComponent<AudioSource>();
     }
 
     void Update()
     {
-        MovePlayer();
+        MovePlayer();   
     }
 
     void MovePlayer()
     {   
         //Moves player with arrow keys if on ground
         float horizontalInput = Input.GetAxis("Horizontal");
+
+        if(horizontalInput != 0.0)
+        {
+            titleText.enabled = false;
+            movementText.enabled = false;
+        }
+
         if(isOnGround)
         {
             playerRb.AddForce(Vector3.forward * speed * horizontalInput, ForceMode.Force);
@@ -37,6 +58,7 @@ public class PlayerController : MonoBehaviour
         {
             playerRb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isOnGround = false;
+            playerAudio.PlayOneShot(jumpSound, 1.0f);
         }
     }
 
@@ -54,14 +76,12 @@ public class PlayerController : MonoBehaviour
     //If player has power up player can kill the enemy
     private void OnTriggerEnter(Collider other) 
     {
-        if(other.tag == "Enemy" && hasPowerup == true)
-        {
-            Destroy(other.gameObject);
-        }
+
 
         if(other.CompareTag("Powerup"))
         {
             hasPowerup = true;
+            powerUpEffect.Play();
             StartCoroutine(PowerupTimer());
             Destroy(other.gameObject);
         } 
@@ -73,6 +93,7 @@ public class PlayerController : MonoBehaviour
         if(hasPowerup == true)
         {
             yield return new WaitForSeconds(powerupRate);
+            powerUpEffect.Stop();
             hasPowerup = false;
         }
     }

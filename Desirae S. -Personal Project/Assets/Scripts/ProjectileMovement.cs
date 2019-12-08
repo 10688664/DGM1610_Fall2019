@@ -16,7 +16,11 @@ public class ProjectileMovement : MonoBehaviour
     
     void Update()
     {
-        transform.LookAt(player.transform.position);
-        transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        if(player != null)
+        {
+            transform.LookAt(player.transform.position);
+            transform.Translate(Vector3.forward * Time.deltaTime * speed);
+        }
+        
     }
 }
